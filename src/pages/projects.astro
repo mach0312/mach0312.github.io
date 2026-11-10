@@ -1,0 +1,40 @@
+---
+import { PROJECT_GROUPS } from '../data/profile';
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Projects" description="손재락이 직접 만들어 공개한 저장소와 강의 자료.">
+	<header class="page-head">
+		<h1>Projects</h1>
+		<p>직접 만들어 공개한 저장소와 강의 자료입니다.</p>
+	</header>
+	{
+		PROJECT_GROUPS.map((group) => (
+			<section class="project-group">
+				<h2 class="section-label">{group.title}</h2>
+				<ul class="project-list">
+					{group.items.map((p) => (
+						<li class="project">
+							<h3 class="project-name">
+								<a href={p.links[0]?.href}>{p.name}</a>
+							</h3>
+							<p>{p.desc}</p>
+							<div class="project-meta">
+								<ul class="stack" aria-label="사용 기술">
+									{p.stack.map((s) => (
+										<li>{s}</li>
+									))}
+								</ul>
+								<span class="project-links">
+									{p.links.map((l) => (
+										<a href={l.href}>{l.label} ↗</a>
+									))}
+								</span>
+							</div>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</Base>

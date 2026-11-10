@@ -1,0 +1,34 @@
+---
+import BlogSidebar from '../../../components/BlogSidebar.astro';
+import PostList from '../../../components/PostList.astro';
+import Base from '../../../layouts/Base.astro';
+import { getPublishedPosts, tagSlug } from '../../../utils/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPublishedPosts();
+	const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+	return tags.map((tag) => ({ params: { tag: tagSlug(tag) }, props: { tag } }));
+}
+
+interface Props {
+	tag: string;
+}
+
+const { tag } = Astro.props;
+const all = await getPublishedPosts();
+const posts = all.filter((p) => p.data.tags.includes(tag));
+---
+
+<Base title={`#${tag} · Blog`} description={`#${tag} 태그가 붙은 글 목록.`}>
+	<header class="page-head">
+		<p class="eyebrow">Tag</p>
+		<h1>#{tag}</h1>
+		<p>{posts.length}개 글 · <a href="/blog/">전체 보기</a></p>
+	</header>
+	<div class="blog-layout">
+		<BlogSidebar posts={all} activeTag={tag} />
+		<div class="blog-main">
+			<PostList posts={posts} />
+		</div>
+	</div>
+</Base>

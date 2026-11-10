@@ -1,0 +1,21 @@
+---
+import BlogSidebar from '../../components/BlogSidebar.astro';
+import PostList from '../../components/PostList.astro';
+import Base from '../../layouts/Base.astro';
+import { getPublishedPosts } from '../../utils/posts';
+
+const posts = await getPublishedPosts();
+---
+
+<Base title="Blog" description="연구하고 만들면서 배운 것을 적는 손재락의 블로그.">
+	<header class="page-head">
+		<h1>Blog</h1>
+		<p>연구하고 만들면서 배운 것을 적습니다.</p>
+	</header>
+	<div class="blog-layout">
+		<BlogSidebar posts={posts} />
+		<div class="blog-main">
+			<PostList posts={posts} />
+		</div>
+	</div>
+</Base>

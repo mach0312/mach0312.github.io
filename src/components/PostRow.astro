@@ -1,0 +1,23 @@
+---
+import { formatDate, type Post, postUrl } from '../utils/posts';
+
+interface Props {
+	post: Post;
+	withYear?: boolean;
+}
+
+const { post, withYear = false } = Astro.props;
+const { title, description, pubDate, topic, tags } = post.data;
+---
+
+<li class="post-row">
+	<time datetime={pubDate.toISOString()}>{formatDate(pubDate, withYear)}</time>
+	<div class="post-row-body">
+		<h3><a href={postUrl(post)}>{title}</a></h3>
+		<p>{description}</p>
+		<div class="post-row-meta">
+			<span class="topic-label">{topic}</span>
+			{tags.map((tag) => <span class="tag-label">#{tag}</span>)}
+		</div>
+	</div>
+</li>
