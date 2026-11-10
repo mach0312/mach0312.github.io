@@ -24,8 +24,9 @@
 
 	--font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
 		'Noto Sans KR', 'Malgun Gothic', sans-serif;
-	--font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
-		monospace;
+	/* 고정폭은 코드에만 쓴다. 이 글꼴엔 한글이 없어서 코드 속 한글은 Pretendard로 그린다. */
+	--font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Pretendard Variable', Pretendard, ui-monospace,
+		SFMono-Regular, Menlo, Consolas, monospace;
 
 	--radius: 6px;
 	--container: 1100px;
@@ -91,6 +92,10 @@ a {
 	text-decoration: none;
 }
 
+button {
+	font: inherit;
+}
+
 a,
 button {
 	transition:
@@ -152,10 +157,9 @@ p {
 .series-label,
 .topic-label,
 .pub-kind {
-	font-family: var(--font-mono);
 	font-size: 12px;
-	font-weight: 500;
-	letter-spacing: 0.06em;
+	font-weight: 600;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 }
 
@@ -169,7 +173,6 @@ p {
 }
 
 .tag-label {
-	font-family: var(--font-mono);
 	font-size: 12px;
 	color: var(--faint);
 }
@@ -215,8 +218,7 @@ p {
 }
 
 .wordmark .name-en {
-	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 13px;
 	color: var(--muted);
 }
 
@@ -403,7 +405,7 @@ p {
 }
 
 .facet-list .count {
-	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
 	font-size: 12px;
 	color: var(--faint);
 	padding-top: 2px;
@@ -426,8 +428,7 @@ p {
 	border: 1px solid var(--line-strong);
 	border-radius: 999px;
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 12.5px;
+	font-size: 13px;
 }
 
 .tag-cloud a:hover,
@@ -451,10 +452,9 @@ p {
 	padding-bottom: 10px;
 	border-bottom: 1px solid var(--line-strong);
 	color: var(--ink);
-	font-family: var(--font-mono);
-	font-size: 14px;
-	font-weight: 600;
-	letter-spacing: 0.04em;
+	font-size: 15px;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
 }
 
 .post-list {
@@ -472,10 +472,10 @@ p {
 }
 
 .post-row time {
-	padding-top: 3px;
+	padding-top: 2px;
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 13px;
+	font-size: 14px;
+	font-variant-numeric: tabular-nums;
 }
 
 .post-row h3 {
@@ -533,8 +533,7 @@ p {
 	display: block;
 	margin-top: 14px;
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 15px;
+	font-size: 17px;
 	font-weight: 400;
 	letter-spacing: 0;
 }
@@ -651,10 +650,10 @@ p {
 }
 
 .pub-year {
-	padding-top: 3px;
+	padding-top: 2px;
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 13px;
+	font-size: 14px;
+	font-variant-numeric: tabular-nums;
 }
 
 .pub-title {
@@ -714,8 +713,8 @@ p {
 	border: 1px solid var(--line-strong);
 	border-radius: 4px;
 	color: var(--ink);
-	font-family: var(--font-mono);
-	font-size: 12.5px;
+	font-size: 13px;
+	font-weight: 500;
 }
 
 .pub-link:hover {
@@ -758,9 +757,9 @@ p {
 .project-name {
 	margin: 0 0 6px;
 	color: var(--ink);
-	font-family: var(--font-mono);
-	font-size: 16px;
-	font-weight: 600;
+	font-size: 18px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
 }
 
 .project-name a:hover {
@@ -812,8 +811,7 @@ p {
 	border-radius: 4px;
 	background: var(--code-inline);
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 12.5px;
 }
 
 .project-links {
@@ -870,8 +868,8 @@ p {
 	gap: 8px;
 	margin: 0;
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 13px;
+	font-size: 14px;
+	font-variant-numeric: tabular-nums;
 }
 
 .post-tags {
@@ -968,8 +966,7 @@ p {
 
 .post-nav .label {
 	color: var(--muted);
-	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 13px;
 }
 
 .post-nav .t {
