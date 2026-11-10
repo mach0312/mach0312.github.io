@@ -1,0 +1,144 @@
+---
+import 'katex/dist/katex.min.css';
+import type { MarkdownHeading } from 'astro';
+import { formatDate, type Post, postUrl, readingMinutes, tagSlug, topicSlug } from '../utils/posts';
+import Base from './Base.astro';
+
+interface Props {
+	post: Post;
+	headings: MarkdownHeading[];
+	newer?: Post;
+	older?: Post;
+	series: Post[];
+}
+
+const { post, headings, newer, older, series } = Astro.props;
+const { title, description, pubDate, updatedDate, topic, tags } = post.data;
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const minutes = readingMinutes(post.body);
+---
+
+<Base title={title} description={description} type="article">
+	<article class="post">
+		<header class="post-head">
+			<a class="topic-label" href={`/blog/topic/${topicSlug(topic)}/`}>{topic}</a>
+			<h1>{title}</h1>
+			<p class="post-lead">{description}</p>
+			<p class="post-meta">
+				<time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+				<span aria-hidden="true">·</span>
+				<span>{minutes} min read</span>
+				{
+					updatedDate && (
+						<>
+							<span aria-hidden="true">·</span>
+							<span>
+								수정 <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+							</span>
+						</>
+					)
+				}
+			</p>
+			{
+				tags.length > 0 && (
+					<ul class="post-tags">
+						{tags.map((tag) => (
+							<li>
+								<a href={`/blog/tag/${tagSlug(tag)}/`}>#{tag}</a>
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</header>
+
+		<div class="post-body">
+			{
+				toc.length > 0 && (
+					<nav class="toc" aria-label="목차">
+						<p class="toc-label">Contents</p>
+						<ol>
+							{toc.map((h) => (
+								<li class={`d${h.depth}`}>
+									<a href={`#${h.slug}`}>{h.text}</a>
+								</li>
+							))}
+						</ol>
+					</nav>
+				)
+			}
+			<div class="prose">
+				{
+					series.length > 1 && (
+						<aside class="series-box" aria-label="연재 목록">
+							<p class="series-label">Series · {post.data.series}</p>
+							<ol>
+								{series.map((p) =>
+									p.id === post.id ? (
+										<li>
+											<span aria-current="page">{p.data.title}</span>
+										</li>
+									) : (
+										<li>
+											<a href={postUrl(p)}>{p.data.title}</a>
+										</li>
+									),
+								)}
+							</ol>
+						</aside>
+					)
+				}
+				<slot />
+			</div>
+		</div>
+
+		<nav class="post-nav" aria-label="이전 글과 다음 글">
+			{
+				older ? (
+					<a class="older" href={postUrl(older)}>
+						<span class="label">이전 글</span>
+						<span class="t">{older.data.title}</span>
+					</a>
+				) : (
+					<span />
+				)
+			}
+			{
+				newer ? (
+					<a class="newer" href={postUrl(newer)}>
+						<span class="label">다음 글</span>
+						<span class="t">{newer.data.title}</span>
+					</a>
+				) : (
+					<span />
+				)
+			}
+		</nav>
+	</article>
+</Base>
+
+<script>
+	// 목차에서 지금 읽고 있는 제목을 표시한다.
+	const toc = document.querySelector('.toc');
+	if (toc) {
+		const links = [...toc.querySelectorAll<HTMLAnchorElement>('a')];
+		const byId = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
+		const heads = [...document.querySelectorAll<HTMLElement>('.prose h2[id], .prose h3[id]')].filter((h) =>
+			byId.has(h.id),
+		);
+		let current = '';
+		const update = () => {
+			let id = heads[0]?.id ?? '';
+			for (const h of heads) {
+				if (h.getBoundingClientRect().top < 140) id = h.id;
+				else break;
+			}
+			if (id === current) return;
+			current = id;
+			for (const a of links) a.removeAttribute('aria-current');
+			byId.get(id)?.setAttribute('aria-current', 'true');
+		};
+		document.addEventListener('scroll', update, { passive: true });
+		update();
+	}
+</script>
