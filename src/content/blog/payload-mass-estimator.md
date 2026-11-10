@@ -4,6 +4,8 @@ description: 구동력과 가속도만으로 적재 질량을 온라인 추정�
 pubDate: '2026-11-10T11:00:00+09:00'
 topic: Engineering
 tags: [ros2, estimation, rls]
+# 실기 검증 전이라 공개하지 않는다. 검증을 마치면 이 줄과 아래 draft를 지운다.
+draft: true
 ---
 
 짐을 싣고 다니는 이동로봇은 적재물에 따라 전체 질량이 크게 달라집니다. 제어기나 학습 모델이 이 값을 쓰려면 지금 질량이 얼마인지뿐 아니라 그 추정을 믿어도 되는지도 함께 알아야 합니다. [payload_mass_estimator](https://github.com/mach0312/payload_mass_estimator)는 그 두 가지를 같이 내보내는 ROS 2 노드입니다.

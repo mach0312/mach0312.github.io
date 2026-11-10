@@ -3,10 +3,10 @@ import { PROJECT_GROUPS } from '../data/profile';
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Projects" description="손재락이 직접 만들어 공개한 저장소와 강의 자료.">
+<Base title="Projects" description="반영, 공개, 운용까지 마친 작업만 모았습니다.">
 	<header class="page-head">
 		<h1>Projects</h1>
-		<p>직접 만들어 공개한 저장소와 강의 자료입니다.</p>
+		<p>반영, 공개, 운용까지 마친 작업만 모았습니다. 회사 저장소는 비공개라 링크 대신 설명만 적었습니다.</p>
 	</header>
 	{
 		PROJECT_GROUPS.map((group) => (
@@ -16,8 +16,9 @@ import Base from '../layouts/Base.astro';
 					{group.items.map((p) => (
 						<li class="project">
 							<h3 class="project-name">
-								<a href={p.links[0]?.href}>{p.name}</a>
+								{p.links[0] ? <a href={p.links[0].href}>{p.name}</a> : <span>{p.name}</span>}
 							</h3>
+							<p class="project-status">{p.status}</p>
 							<p>{p.desc}</p>
 							<div class="project-meta">
 								<ul class="stack" aria-label="사용 기술">
@@ -29,6 +30,9 @@ import Base from '../layouts/Base.astro';
 									{p.links.map((l) => (
 										<a href={l.href}>{l.label} ↗</a>
 									))}
+									{p.links.length === 0 && p.privateNote && (
+										<span class="project-private">{p.privateNote}</span>
+									)}
 								</span>
 							</div>
 						</li>
