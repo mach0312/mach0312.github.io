@@ -1,0 +1,37 @@
+---
+import BlogSidebar from '../../../components/BlogSidebar.astro';
+import PostList from '../../../components/PostList.astro';
+import { TOPICS, type Topic } from '../../../consts';
+import Base from '../../../layouts/Base.astro';
+import { getPublishedPosts, topicSlug } from '../../../utils/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPublishedPosts();
+	return TOPICS.filter((t) => posts.some((p) => p.data.topic === t)).map((topic) => ({
+		params: { topic: topicSlug(topic) },
+		props: { topic },
+	}));
+}
+
+interface Props {
+	topic: Topic;
+}
+
+const { topic } = Astro.props;
+const all = await getPublishedPosts();
+const posts = all.filter((p) => p.data.topic === topic);
+---
+
+<Base title={`${topic} · Blog`} description={`${topic} 토픽의 글 목록.`}>
+	<header class="page-head">
+		<p class="eyebrow">Topic</p>
+		<h1>{topic}</h1>
+		<p>{posts.length}개 글 · <a href="/blog/">전체 보기</a></p>
+	</header>
+	<div class="blog-layout">
+		<BlogSidebar posts={all} activeTopic={topic} />
+		<div class="blog-main">
+			<PostList posts={posts} />
+		</div>
+	</div>
+</Base>
