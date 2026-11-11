@@ -1,0 +1,171 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# 글쓰기 화면(https://mach0312.github.io/admin/) 설정. Sveltia CMS를 쓴다.
+# 저장하면 GitHub main 브랜치에 바로 커밋되고, 배포 워크플로가 돌아 2~3분 뒤 사이트에 반영된다.
+# 로그인은 이 저장소 하나에만 Contents 쓰기 권한을 준 GitHub 토큰으로 한다(토큰은 그 브라우저에만 저장된다).
+
+app_title: 손재락 블로그 편집
+site_url: https://mach0312.github.io
+display_url: https://mach0312.github.io
+
+backend:
+  name: github
+  repo: mach0312/mach0312.github.io
+  branch: main
+  auth_methods: [token]
+  commit_messages:
+    create: '글 추가: {{slug}}'
+    update: '수정: {{collection}}/{{slug}}'
+    delete: '삭제: {{collection}}/{{slug}}'
+    uploadMedia: '이미지 추가: {{path}}'
+    deleteMedia: '이미지 삭제: {{path}}'
+
+media_folder: public/images
+public_folder: /images
+
+output:
+  # 비워 둔 선택 항목은 파일에 쓰지 않는다. Astro 스키마의 optional과 맞추기 위해 필요하다.
+  omit_empty_optional_fields: true
+
+collections:
+  - name: blog
+    label: 글
+    label_singular: 글
+    description: 블로그 글. 날짜가 최신인 글부터 목록에 나온다.
+    folder: src/content/blog
+    create: true
+    delete: true
+    identifier_field: title
+    slug:
+      template: '{{slug}}'
+      editable: true
+      hint: 글 주소(/blog/이름/)가 됩니다. 영문 소문자와 하이픈을 권합니다. 저장된 글의 이름을 바꾸면 예전 주소는 열리지 않습니다.
+    preview_path: /blog/{{slug}}/
+    sortable_fields:
+      - title
+      - { field: pubDate, label: 날짜, default_sort: desc }
+    view_filters:
+      - { label: 비공개 글, field: draft, pattern: true }
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: description, label: 요약, widget: text, hint: 목록과 글 머리에 보이는 한두 문장 }
+      - name: pubDate
+        label: 날짜
+        widget: datetime
+        input_timezone: Asia/Seoul
+        default: '{{now}}'
+        hint: 목록은 이 날짜 순서로 정렬됩니다.
+      - name: updatedDate
+        label: 수정한 날
+        widget: datetime
+        input_timezone: Asia/Seoul
+        required: false
+        hint: 넣으면 글 머리에 '수정 날짜'로 보입니다.
+      - name: topic
+        label: 분류
+        widget: select
+        options: [Research, Engineering, Note, Retrospect]
+        default: Engineering
+      - { name: tags, label: 태그, widget: list, required: false, hint: '영문 소문자를 권합니다. 예) ros2, nav2' }
+      - { name: series, label: 연재 이름, widget: string, required: false }
+      - { name: seriesOrder, label: 연재 순서, widget: number, value_type: int, required: false }
+      - name: draft
+        label: 비공개
+        widget: boolean
+        default: false
+        required: false
+        hint: 켜 두면 사이트에 올라가지 않습니다.
+      - name: body
+        label: 본문
+        widget: markdown
+        # 수식($...$)과 코드 블록이 바뀌지 않도록 마크다운 원문 편집을 기본으로 둔다.
+        modes: [raw, rich_text]
+
+  - name: projects
+    label: 프로젝트
+    label_singular: 프로젝트
+    description: Projects 페이지 항목. 같은 묶음 안에서는 이 목록 순서대로 보인다(끌어서 순서 변경).
+    file: src/data/projects.json
+    identifier_field: name
+    summary: '{{group}} · {{name}} ({{status}})'
+    create: true
+    delete: true
+    fields:
+      - name: group
+        label: 묶음
+        widget: select
+        options: [Open source, Research, Work · 피트인, Teaching]
+      - { name: name, label: 이름, widget: string }
+      - { name: period, label: 기간, widget: string, required: false, hint: '예) 2024.01 ~ 현재' }
+      - name: status
+        label: 상태 표시
+        widget: string
+        hint: '이름 아래 작은 표시. 예) Merged, 현장 운용 중, 개발 중'
+      - name: state
+        label: 진행 단계
+        widget: select
+        hint: 상태 표시의 색을 정합니다.
+        options:
+          - { label: 완료, value: done }
+          - { label: 진행 중, value: active }
+          - { label: 멈춤, value: stopped }
+      - { name: desc, label: 설명, widget: text }
+      - { name: stack, label: 기술, widget: list, required: false }
+      - name: links
+        label: 링크
+        widget: list
+        required: false
+        summary: '{{label}}'
+        fields:
+          - { name: label, label: 표시 이름, widget: string }
+          - { name: href, label: 주소, widget: string }
+      - name: privateNote
+        label: 링크 대신 보일 문구
+        widget: string
+        required: false
+        hint: '비공개 저장소일 때. 예) 회사 비공개 저장소'
+      - name: post
+        label: 관련 글
+        widget: relation
+        collection: blog
+        required: false
+
+  - name: pages
+    label: 소개 페이지
+    files:
+      - name: profile
+        label: 소개와 논문
+        file: src/data/profile.json
+        fields:
+          - { name: eyebrow, label: 맨 위 작은 글씨, widget: string }
+          - { name: lead, label: 한 줄 소개, widget: string }
+          - { name: intro, label: 소개 문단, widget: text }
+          - name: facts
+            label: 소속과 관심
+            widget: list
+            summary: '{{label}}: {{value}}'
+            fields:
+              - { name: label, label: 항목, widget: string }
+              - { name: value, label: 내용, widget: string }
+          - name: publications
+            label: 논문
+            widget: list
+            summary: '{{year}} {{title}}'
+            fields:
+              - { name: year, label: 연도, widget: number, value_type: int }
+              - { name: kind, label: 종류, widget: select, options: [Journal, Conference] }
+              - { name: title, label: 제목, widget: string }
+              - { name: titleEn, label: 영문 제목, widget: string, required: false }
+              - { name: authors, label: 저자, widget: list }
+              - { name: venue, label: 게재처, widget: string }
+              - { name: status, label: 상태, widget: string, required: false, hint: '예) 게재 예정' }
+              - name: links
+                label: 링크
+                widget: list
+                required: false
+                summary: '{{label}}'
+                fields:
+                  - { name: label, label: 표시 이름, widget: string }
+                  - { name: href, label: 주소, widget: string }
+          - { name: projectsIntro, label: Projects 페이지 머리말, widget: text }
+          - { name: projectsNote, label: 첫 화면 프로젝트 소개 문장, widget: text }

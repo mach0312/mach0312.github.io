@@ -1,0 +1,31 @@
+{
+  "eyebrow": "Robotics engineer",
+  "lead": "이동로봇의 모션 플래닝과 제어를 합니다.",
+  "intro": "기구학을 유도하고, 제어기를 짜고, ROS 2에 붙여 시뮬레이션에 올린 뒤, 실제 로봇에서도 버티는지 보여 줄 실험까지 만드는 한 줄기 전체를 다루는 일을 좋아합니다. 이곳에는 그 과정에서 남긴 기록을 모읍니다.",
+  "facts": [
+    { "label": "소속", "value": "피트인(PIT-IN) 연구원" },
+    { "label": "학업", "value": "경희대학교 기계공학과 석사과정 · RCI Lab" },
+    { "label": "관심", "value": "이동로봇 기구학과 제어, 샘플링 기반 계획과 MPC, mm 단위 정밀 도킹" }
+  ],
+  "publications": [
+    {
+      "year": 2026,
+      "kind": "Journal",
+      "title": "유계 참조 보상과 조향률 제약을 통한 이중 조향 이동로봇의 정밀 도킹 성능 개선",
+      "titleEn": "Improving Precision Docking of a Double-Steering Mobile Robot Using Bounded Reference Compensation and Steering-Rate Constraints",
+      "authors": ["손재락", "심재훈", "김상현"],
+      "venue": "제어·로봇·시스템학회 논문지 (JICROS)",
+      "status": "게재 예정"
+    },
+    {
+      "year": 2026,
+      "kind": "Conference",
+      "title": "Analysis of fine-convergence limitations in Nav2 omnidirectional controllers and a kinematics-based convergence controller",
+      "authors": ["J.-R. Son", "J.-H. Sim", "S.-H. Kim"],
+      "venue": "Proc. of the 41st ICROS Annual Conference (ICROS 2026), Daegu, Korea, Jul. 2026",
+      "links": [{ "label": "Code", "href": "https://github.com/mach0312/omni-docking-bench" }]
+    }
+  ],
+  "projectsIntro": "반영, 공개, 운용까지 마친 작업만 모았습니다. 회사 저장소는 비공개라 링크 대신 설명만 적었습니다.",
+  "projectsNote": "Nav2 기여, 정밀 도킹 논문의 재현 패키지, 현장에서 운용 중인 배터리 이송 로봇 제어 프로그램, 샘플링 기반 계획 강의를 모았습니다."
+}
