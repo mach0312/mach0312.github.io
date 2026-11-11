@@ -8,7 +8,7 @@ tags: [planning, python, rrt, lecture]
 draft: false
 ---
 
-[Sampling-Based-Planning_Tutorial](https://github.com/mach0312/Sampling-Based-Planning_Tutorial)은 샘플링 기반 경로 계획을 설명하기 위해 Python 예제, 강의 노트, 영상을 묶은 저장소입니다. 경희대학교 RCI Lab 소속으로 정리한 자료이며, 저장소 생성일인 2025년 11월 20일을 글 날짜로 둡니다.
+[Sampling-Based-Planning_Tutorial](https://github.com/mach0312/Sampling-Based-Planning_Tutorial)은 샘플링 기반 경로 계획을 설명하기 위해 Python 예제, 강의 노트, 영상을 묶은 저장소입니다. 경희대학교 RCI Lab 소속으로 정리한 자료입니다. 글 날짜는 저장소 생성일인 2025년 11월 20일을 기준으로 두었으며, 본문은 2026년 11월 11일에 자료와 실행 상태를 다시 확인한 회고입니다.
 
 강의는 알고리즘 이름을 소개하는 데서 끝내지 않고, 샘플을 뽑아 경로를 반환하기까지 코드가 어떤 순서로 실행되는지 함께 살펴보는 구성입니다. 여기서 만든 것은 교육용 설명과 예제 묶음입니다. 실제 AMR의 전역 계획기나 새로운 경로 계획 알고리즘을 개발한 연구로 소개하지 않습니다.
 
