@@ -21,6 +21,8 @@
 	--code-bg: #eef1f5;
 	--code-inline: #e7ebf1;
 	--mark: #ffefb8;
+	--state-active: #1d4ed8;
+	--state-active-bg: #e4ecfb;
 
 	--font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
 		'Noto Sans KR', 'Malgun Gothic', sans-serif;
@@ -51,6 +53,8 @@
 	--code-bg: #121824;
 	--code-inline: #1d2432;
 	--mark: #4a3b12;
+	--state-active: #8fb4ff;
+	--state-active-bg: #172238;
 }
 
 /* 기본 */
@@ -772,16 +776,49 @@ p {
 	font-size: 15px;
 }
 
-.project .project-status {
-	flex: none;
-	align-self: flex-start;
+.project-sub {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
 	margin: 0 0 10px;
+}
+
+.project-status {
+	display: inline-block;
 	padding: 1px 8px;
 	border-radius: 999px;
 	background: var(--accent-soft);
 	color: var(--accent-strong);
 	font-size: 12px;
 	font-weight: 600;
+	line-height: 1.6;
+}
+
+/* 진행 단계별 색: 완료는 강조색, 진행 중은 파랑, 멈춤은 회색 */
+.project-status[data-state='active'] {
+	background: var(--state-active-bg);
+	color: var(--state-active);
+}
+
+.project-status[data-state='stopped'] {
+	background: var(--code-inline);
+	color: var(--muted);
+}
+
+.project-period {
+	color: var(--faint);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+
+.state-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 18px 0 0;
+	padding: 0;
+	list-style: none;
 }
 
 .project-private {

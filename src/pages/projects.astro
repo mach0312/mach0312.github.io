@@ -1,42 +1,66 @@
 ---
-import { PROJECT_GROUPS } from '../data/profile';
+import { PROFILE, PROJECTS, projectGroups } from '../data/profile';
 import Base from '../layouts/Base.astro';
+import { getPublishedPosts, postUrl } from '../utils/posts';
+
+const groups = projectGroups();
+const posts = new Map((await getPublishedPosts()).map((p) => [p.id, p]));
+const description = PROFILE.projectsIntro;
+// 완료가 아닌 항목이 있을 때만 색 설명을 보인다.
+const showLegend = PROJECTS.some((p) => p.state !== 'done');
 ---
 
-<Base title="Projects" description="반영, 공개, 운용까지 마친 작업만 모았습니다.">
+<Base title="Projects" description={description}>
 	<header class="page-head">
 		<h1>Projects</h1>
-		<p>반영, 공개, 운용까지 마친 작업만 모았습니다. 회사 저장소는 비공개라 링크 대신 설명만 적었습니다.</p>
+		<p>{description}</p>
+		{
+			showLegend && (
+				<ul class="state-legend" aria-label="상태 표시">
+					<li><span class="project-status" data-state="done">완료</span></li>
+					<li><span class="project-status" data-state="active">진행 중</span></li>
+					<li><span class="project-status" data-state="stopped">멈춤</span></li>
+				</ul>
+			)
+		}
 	</header>
 	{
-		PROJECT_GROUPS.map((group) => (
+		groups.map((group) => (
 			<section class="project-group">
 				<h2 class="section-label">{group.title}</h2>
 				<ul class="project-list">
-					{group.items.map((p) => (
-						<li class="project">
-							<h3 class="project-name">
-								{p.links[0] ? <a href={p.links[0].href}>{p.name}</a> : <span>{p.name}</span>}
-							</h3>
-							<p class="project-status">{p.status}</p>
-							<p>{p.desc}</p>
-							<div class="project-meta">
-								<ul class="stack" aria-label="사용 기술">
-									{p.stack.map((s) => (
-										<li>{s}</li>
-									))}
-								</ul>
-								<span class="project-links">
-									{p.links.map((l) => (
-										<a href={l.href}>{l.label} ↗</a>
-									))}
-									{p.links.length === 0 && p.privateNote && (
-										<span class="project-private">{p.privateNote}</span>
-									)}
-								</span>
-							</div>
-						</li>
-					))}
+					{group.items.map((p) => {
+						const post = p.post ? posts.get(p.post) : undefined;
+						const href = post ? postUrl(post) : p.links[0]?.href;
+						return (
+							<li class="project">
+								<h3 class="project-name">{href ? <a href={href}>{p.name}</a> : <span>{p.name}</span>}</h3>
+								<div class="project-sub">
+									<span class="project-status" data-state={p.state}>
+										{p.status}
+									</span>
+									{p.period && <span class="project-period">{p.period}</span>}
+								</div>
+								<p>{p.desc}</p>
+								<div class="project-meta">
+									<ul class="stack" aria-label="사용 기술">
+										{p.stack.map((s) => (
+											<li>{s}</li>
+										))}
+									</ul>
+									<span class="project-links">
+										{post && <a href={postUrl(post)}>글 읽기</a>}
+										{p.links.map((l) => (
+											<a href={l.href}>{l.label} ↗</a>
+										))}
+										{p.links.length === 0 && p.privateNote && (
+											<span class="project-private">{p.privateNote}</span>
+										)}
+									</span>
+								</div>
+							</li>
+						);
+					})}
 				</ul>
 			</section>
 		))
