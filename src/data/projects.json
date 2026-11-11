@@ -5,12 +5,23 @@
     "period": "2026.02",
     "status": "Merged",
     "state": "done",
-    "desc": "홀로노믹 로봇이 옆으로만 움직일 때(vx = 0) 속도 다각형 판정이 x 속도만 보고 범위 밖으로 처리해, 주행 중인데도 정지 상태용 다각형에 머물던 문제를 고쳤다. 홀로노믹이면 속도 크기로 판정하도록 바꾸고 테스트와 공식 튜토리얼 문서도 함께 고쳤다. main에 머지됐고 Jazzy 1.3.12부터 릴리스에 들어갔다.",
-    "stack": ["C++", "ROS 2", "Nav2"],
+    "desc": "전방향 로봇의 측면 이동을 올바르게 판정하도록 Nav2 Collision Monitor의 코드와 문서를 수정했다. 리뷰를 거쳐 upstream과 Jazzy 릴리스에 반영되었다.",
+    "stack": [
+      "C++",
+      "ROS 2",
+      "Nav2"
+    ],
     "links": [
-      { "label": "PR #5954", "href": "https://github.com/ros-navigation/navigation2/pull/5954" },
-      { "label": "Docs #871", "href": "https://github.com/ros-navigation/docs.nav2.org/pull/871" }
-    ]
+      {
+        "label": "PR #5954",
+        "href": "https://github.com/ros-navigation/navigation2/pull/5954"
+      },
+      {
+        "label": "Docs #871",
+        "href": "https://github.com/ros-navigation/docs.nav2.org/pull/871"
+      }
+    ],
+    "post": "nav2-collision-monitor-holonomic"
   },
   {
     "group": "Research",
@@ -18,20 +29,168 @@
     "period": "2026.04",
     "status": "v0.1.0 공개",
     "state": "done",
-    "desc": "ICROS 2026 논문의 재현 패키지. 3 cm 출발, 3 mm 수렴 기준의 근거리 도킹 벤치마크를 8방향 × 헤딩 오프셋 × 반복 격자로 돌려 제안 기구학 제어기와 Nav2 MPPI, DWB를 비교한다.",
-    "stack": ["ROS 2 Jazzy", "Python", "Docker"],
-    "links": [{ "label": "GitHub", "href": "https://github.com/mach0312/omni-docking-bench" }],
+    "desc": "기구학 기반 도킹 제어기와 Nav2 비교군을 같은 조건에서 평가하도록 로봇 모델, 실험 실행과 분석 도구를 묶은 논문 재현 패키지.",
+    "stack": [
+      "ROS 2 Jazzy",
+      "Python",
+      "Docker"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/mach0312/omni-docking-bench"
+      }
+    ],
     "post": "omni-docking-bench"
+  },
+  {
+    "group": "Research",
+    "name": "이중 조향 구동 모델과 ros2_control 제어기",
+    "period": "2025.06 ~ 2025.08 (초기 공개본)",
+    "status": "초기 공개본 개발 멈춤",
+    "state": "stopped",
+    "desc": "이중 조향 기구학과 오도메트리를 ros2_control에 연결했다. 로봇 모델, 하드웨어 인터페이스와 제어기를 나눠 구성한 초기 공개 작업.",
+    "stack": [
+      "ROS 2",
+      "C++",
+      "ros2_control"
+    ],
+    "links": [
+      {
+        "label": "모델",
+        "href": "https://github.com/mach0312/dsd_bot_description"
+      },
+      {
+        "label": "데모",
+        "href": "https://github.com/mach0312/dsd_control_demo"
+      },
+      {
+        "label": "제어기",
+        "href": "https://github.com/mach0312/double_steering_drive_controller"
+      }
+    ],
+    "post": "double-steering-drive-controller"
+  },
+  {
+    "group": "Research",
+    "name": "PGV 포즈 기반 라인 제어",
+    "period": "2025.11 ~ 2026.02 (초기 공개본)",
+    "status": "초기 공개본 개발 멈춤",
+    "state": "stopped",
+    "desc": "PGV 포즈를 이용한 정렬·목표 이동 제어와 관제 연동을 개발하고 동료의 미세 제어를 통합했다. 초기 공개본이며 후속 개발은 회사로 옮겼다.",
+    "stack": [
+      "ROS 2",
+      "Python",
+      "PGV"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/mach0312/pgv_tracing_mode"
+      }
+    ],
+    "post": "pgv-tracing-mode"
+  },
+  {
+    "group": "Research",
+    "name": "payload_mass_estimator",
+    "period": "2026.06 (초기 구현)",
+    "status": "초기 구현·빌드 미완",
+    "state": "stopped",
+    "desc": "구동력과 가속도로 질량과 힘 편향을 추정하는 ROS 2 모듈을 설계했다. 초기 구현 단계로 빌드 정리와 실차 검증이 남아 있다.",
+    "stack": [
+      "ROS 2",
+      "C++",
+      "RLS"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/mach0312/payload_mass_estimator"
+      }
+    ],
+    "post": "payload-mass-estimator"
   },
   {
     "group": "Work · 피트인",
     "name": "배터리 이송 AGV 제어 프로그램",
-    "period": "2024.01 ~ 현재",
-    "status": "현장 운용 중",
-    "state": "done",
-    "desc": "안양 배터리 교체 스테이션에서 매일 쓰이는 배터리 이송 로봇(AGV 1~3호기)의 제어 프로그램을 동료와 함께 개발했다. 내가 맡은 부분은 조이스틱 수동 조작, ROS 2 연동과 관제 서버 연결 감시, 날짜별 운영 로그, 관제 서버의 작업 즉시 취소 명령이다. 비전 쪽에서는 카메라 USB 장애로 USB 호스트 컨트롤러가 멈추면 재부팅 없이 되살리는 복구 데몬을 만들었고, 3호기에서 상시 동작 중이다.",
-    "stack": ["Python", "ROS 2", "rosbridge", "systemd"],
-    "privateNote": "회사 비공개 저장소"
+    "period": "2023.09 시작, 2024.01 합류",
+    "status": "현장 운용·후속 개선 중",
+    "state": "active",
+    "desc": "현장 운용 중인 AGV 제어 프로그램에서 수동 조작, ROS 2 관제 연동과 작업 상태 처리를 맡았다. 동료가 만든 기반 위에서 기능을 보완했다.",
+    "stack": [
+      "Python",
+      "ROS 2",
+      "rosbridge"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "battery-agv-control"
+  },
+  {
+    "group": "Work · 피트인",
+    "name": "1세대 AGV 제어 웹 페이지",
+    "period": "2024.05 ~ 2026.02 (기본 브랜치)",
+    "status": "기본 브랜치 후속 변경 없음",
+    "state": "stopped",
+    "desc": "Vue와 rosbridge를 연결해 여러 AGV의 상태 확인과 명령 전송 화면을 개발했다. 1세대 구현 기록이며 현재 현장 사용 여부는 확인하지 못했다.",
+    "stack": [
+      "Vue 3",
+      "Vuetify",
+      "WebSocket"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "agv-control-web"
+  },
+  {
+    "group": "Work · 피트인",
+    "name": "2세대 배터리 이송 AMR 소프트웨어",
+    "period": "2025.08 ~ 현재",
+    "status": "개발·현장 검증 중",
+    "state": "active",
+    "desc": "ROS 2 기반 AMR의 시스템 제어, Nav2 주행과 관제 연결을 개발하고 있다. 주행·장치·관제의 역할을 나눠 구성했으며 현장 통합 검증을 진행 중이다.",
+    "stack": [
+      "ROS 2 Jazzy",
+      "Nav2",
+      "ros2_control",
+      "VDA5050"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "amr-v2-software"
+  },
+  {
+    "group": "Work · 피트인",
+    "name": "타이어 탈착기 보조 제어",
+    "period": "2026.06 ~ 현재",
+    "status": "하드웨어 통합 중",
+    "state": "active",
+    "desc": "라즈베리파이 기반 장비 보조 제어, 작업 시퀀스와 TPMS 확인 화면을 연결했다. 현재 하드웨어 통합을 진행 중이다.",
+    "stack": [
+      "Raspberry Pi",
+      "Python",
+      "TPMS"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "tire-changer-automation"
+  },
+  {
+    "group": "Work · 피트인",
+    "name": "인천 스테이션 편대·충전 시뮬레이터",
+    "period": "2026.08 ~ 현재",
+    "status": "모델·정책 검토 중",
+    "state": "active",
+    "desc": "AMR 이동과 배터리 재고·충전을 함께 평가하는 시뮬레이터. 시나리오 생성, 실행과 시각화를 연결했으며 실제 운영 비교 검증은 남아 있다.",
+    "stack": [
+      "TypeScript",
+      "Simulation",
+      "Fleet"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "incheon-fleet-simulator"
   },
   {
     "group": "Teaching",
@@ -39,11 +198,21 @@
     "period": "2025.11",
     "status": "강의 영상 11편",
     "state": "done",
-    "desc": "RCI Lab(경희대학교) 강의 자료. PRM, RRT, RRT*, Informed RRT*, Connect-RRT를 Python으로 처음부터 구현하고 영상 강의로 설명했다.",
-    "stack": ["Python"],
+    "desc": "PRM과 RRT 계열 알고리즘을 노트, Python 예제와 영상 11편으로 정리한 강의 자료. 알고리즘의 개념과 코드 흐름을 연결해 설명했다.",
+    "stack": [
+      "Python",
+      "Planning"
+    ],
     "links": [
-      { "label": "GitHub", "href": "https://github.com/mach0312/Sampling-Based-Planning_Tutorial" },
-      { "label": "YouTube", "href": "https://youtube.com/playlist?list=PL5zS4AjTJMs8wwZQyWds0j8TPxq3N_OpD" }
-    ]
+      {
+        "label": "GitHub",
+        "href": "https://github.com/mach0312/Sampling-Based-Planning_Tutorial"
+      },
+      {
+        "label": "YouTube",
+        "href": "https://www.youtube.com/playlist?list=PL5zS4AjTJMs8wwZQyWds0j8TPxq3N_OpD"
+      }
+    ],
+    "post": "sampling-based-planning-lecture"
   }
 ]
