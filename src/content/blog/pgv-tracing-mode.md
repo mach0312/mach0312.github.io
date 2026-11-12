@@ -20,7 +20,7 @@ draft: false
 
 ## 공개본에서 연구까지
 
-2025년 11월 개인 저장소 [pgv_tracing_mode](https://github.com/mach0312/pgv_tracing_mode)에서 기본 제어 흐름과 관제 연동을 만들었고, 동료가 더한 미세 보정의 초기 구현을 함께 통합했습니다. 이후 회사 저장소에서 2세대 AMR에 맞게 확장했습니다. 정밀 도킹 연구에서는 이 패키지의 다른 판을 써서 학술대회 논문과 재현 패키지 [omni-docking-bench](/blog/omni-docking-bench/)로 정리했습니다.
+2025년 11월 개인 저장소 [pgv_tracing_mode](https://github.com/mach0312/pgv_tracing_mode)에서 기본 제어 흐름과 관제 연동을 만들었고, 동료가 추가한 미세 제어와 보간을 함께 통합했습니다. 이후 회사 저장소에서 2세대 AMR에 맞게 확장했습니다. 정밀 도킹 연구에서는 이 패키지의 다른 판을 써서 학술대회 논문과 재현 패키지 [omni-docking-bench](/blog/omni-docking-bench/)로 정리했습니다.
 
 ## 지금 상태
 
