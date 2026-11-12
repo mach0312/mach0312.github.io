@@ -35,7 +35,7 @@
     "status": "기능 반영, 일부 실기 확인 전",
     "state": "active",
     "appliedTo": "피트인 2세대 AMR",
-    "desc": "주행 드라이브를 ros2_canopen으로 ros2_control에 연결하고, 상판·포크 다축 서보 노드에 호밍, 조그, 재부팅 감지와 이동 중 명령 감시를 더했다. 동료와 함께 개발했다.",
+    "desc": "주행 드라이브를 ros2_canopen으로 ros2_control에 연결하고, 상판·포크 다축 서보 노드에 호밍, 조그, 재부팅 감지와 이동 중 명령 감시를 개발했다.",
     "stack": [
       "CANopen",
       "CiA 402",
