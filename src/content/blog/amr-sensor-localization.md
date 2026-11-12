@@ -8,7 +8,7 @@ tags: [ros2, lidar, localization, imu, sensor-fusion]
 draft: false
 ---
 
-2세대 AMR은 LiDAR 두 대와 바닥의 PGV 코드를 함께 써서 위치를 파악합니다. 이 센서들을 위치 추정과 시스템 상태에 연결하는 작업을 맡았습니다.
+2세대 AMR은 LiDAR 두 대와 바닥의 PGV 코드를 함께 써서 위치를 파악합니다. 이 센서들을 위치 추정과 시스템 상태에 연결했습니다.
 
 ## 듀얼 LiDAR 위치 추정
 
