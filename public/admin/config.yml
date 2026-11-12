@@ -94,9 +94,10 @@ collections:
       - name: group
         label: 묶음
         widget: select
-        options: [Open source, Research, Work · 피트인, Teaching]
+        options: ['구동·모션 제어', '관제·편대', '안전·신뢰성', '센서·위치 추정', '운용 도구', '현장 장비 자동화', '연구', '강의']
       - { name: name, label: 이름, widget: string }
       - { name: period, label: 기간, widget: string, required: false, hint: '예) 2024.01 ~ 현재' }
+      - { name: appliedTo, label: 적용처, widget: string, required: false, hint: '예) 피트인 2세대 AMR' }
       - name: status
         label: 상태 표시
         widget: string

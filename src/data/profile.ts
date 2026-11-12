@@ -39,6 +39,8 @@ const project = z.object({
 	stack: z.array(z.string()).default([]),
 	links: z.array(link).default([]),
 	privateNote: z.string().optional(),
+	// 적용처. 예) 피트인 2세대 AMR
+	appliedTo: z.string().optional(),
 	// 관련 글의 주소 이름(src/content/blog/<이름>.md)
 	post: z.string().optional(),
 });
@@ -56,7 +58,16 @@ export const SELF_NAMES = ['손재락', 'J.-R. Son'];
 export const PROJECTS = z.array(project).parse(projectsJson);
 
 // 묶음은 이 순서로 보인다. 여기 없는 묶음은 맨 뒤에 붙는다. 묶음 안에서는 projects.json 순서를 따른다.
-const GROUP_ORDER = ['Open source', 'Research', 'Work · 피트인', 'Teaching'];
+const GROUP_ORDER = [
+	'구동·모션 제어',
+	'관제·편대',
+	'안전·신뢰성',
+	'센서·위치 추정',
+	'운용 도구',
+	'현장 장비 자동화',
+	'연구',
+	'강의',
+];
 
 export function projectGroups(): { title: string; items: Project[] }[] {
 	const titles = [...new Set([...GROUP_ORDER, ...PROJECTS.map((p) => p.group)])];

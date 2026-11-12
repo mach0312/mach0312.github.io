@@ -5,6 +5,8 @@ pubDate: '2026-02-12T09:00:00+09:00'
 updatedDate: '2026-11-11T09:00:00+09:00'
 topic: Engineering
 tags: [nav2, ros2, open-source, collision-monitor]
+series: '구동·모션 제어'
+seriesOrder: 5
 draft: false
 ---
 

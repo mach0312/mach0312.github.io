@@ -11,6 +11,13 @@ import remarkMath from 'remark-math';
 export default defineConfig({
 	site: 'https://mach0312.github.io',
 	integrations: [mdx(), sitemap()],
+	// 기술 요소별 글로 나누면서 내린 시스템 단위 글의 옛 주소를 이어 준다.
+	redirects: {
+		'/blog/amr-v2-software': '/blog/vda5050-v3-integration/',
+		'/blog/battery-agv-control': '/blog/vda5050-v3-integration/',
+		'/blog/agv-control-web': '/blog/robot-operation-hmi/',
+		'/blog/incheon-fleet-simulator': '/blog/battery-swap-simulation/',
+	},
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkMath],

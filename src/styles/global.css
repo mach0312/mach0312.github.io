@@ -812,6 +812,11 @@ p {
 	font-variant-numeric: tabular-nums;
 }
 
+.project-scope {
+	color: var(--muted);
+	font-size: 13px;
+}
+
 .state-legend {
 	display: flex;
 	flex-wrap: wrap;

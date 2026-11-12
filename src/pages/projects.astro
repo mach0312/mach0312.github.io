@@ -40,6 +40,7 @@ const showLegend = PROJECTS.some((p) => p.state !== 'done');
 										{p.status}
 									</span>
 									{p.period && <span class="project-period">{p.period}</span>}
+									{p.appliedTo && <span class="project-scope">적용: {p.appliedTo}</span>}
 								</div>
 								<p>{p.desc}</p>
 								<div class="project-meta">
