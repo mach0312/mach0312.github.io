@@ -1,10 +1,96 @@
 [
   {
-    "group": "Open source",
+    "group": "구동·모션 제어",
+    "name": "Double Steering Drive 제어기",
+    "period": "2025.06 ~ 2026.05",
+    "status": "2세대 AMR 적용, 현장 검증 중",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR, 정밀 도킹 연구",
+    "desc": "앞뒤 독립 조향 구동 로봇의 ros2_control 제어기. 최단 조향, 조향 변화율 제한, 조향 추종에 따른 바퀴 감속과 카트 견인 모드를 더해 2세대 AMR의 주행 제어기로 쓰고 있다. 공개 저장소는 초기본이다.",
+    "stack": [
+      "C++",
+      "ROS 2",
+      "ros2_control"
+    ],
+    "links": [
+      {
+        "label": "제어기 공개본",
+        "href": "https://github.com/mach0312/double_steering_drive_controller"
+      },
+      {
+        "label": "모델",
+        "href": "https://github.com/mach0312/dsd_bot_description"
+      },
+      {
+        "label": "데모",
+        "href": "https://github.com/mach0312/dsd_control_demo"
+      }
+    ],
+    "post": "double-steering-drive-controller"
+  },
+  {
+    "group": "구동·모션 제어",
+    "name": "CANopen 드라이버 설정과 모터 제어",
+    "period": "2025.09 ~ 현재",
+    "status": "기능 반영, 일부 실기 확인 전",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR",
+    "desc": "주행 드라이브를 ros2_canopen으로 ros2_control에 연결하고, 상판·포크 다축 서보 노드에 호밍, 조그, 재부팅 감지와 이동 중 명령 감시를 더했다. 동료와 함께 개발했다.",
+    "stack": [
+      "CANopen",
+      "CiA 402",
+      "ROS 2",
+      "Python"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "canopen-motor-control"
+  },
+  {
+    "group": "구동·모션 제어",
+    "name": "PGV 기반 정밀 정렬 제어",
+    "period": "2025.11 ~ 현재",
+    "status": "2세대 AMR 적용, 협조 정렬은 실기 전",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR, 정밀 도킹 연구",
+    "desc": "바닥 코드 위치 피드백으로 라인 추종과 목표 자세 이동, 거친 접근에서 미세 정렬로의 단계 전환을 구성했다. 개인 공개본에서 시작해 회사 제어기와 정밀 도킹 연구로 이어졌다.",
+    "stack": [
+      "ROS 2",
+      "Python",
+      "PGV"
+    ],
+    "links": [
+      {
+        "label": "공개본",
+        "href": "https://github.com/mach0312/pgv_tracing_mode"
+      }
+    ],
+    "post": "pgv-tracing-mode"
+  },
+  {
+    "group": "구동·모션 제어",
+    "name": "Nav2 전방향 경로 추종 제어기와 주행 관리",
+    "period": "2025.12 ~ 2026.08",
+    "status": "코너 실행 실기 검증 대기",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR",
+    "desc": "전방향 로봇용 nav2_core 컨트롤러 플러그인과 독립 노드, 코너 인지 실행과 재출발 가속 제한, 헤드리스 수렴 평가 도구를 만들었다. 로봇 명령을 Nav2 액션으로 바꾸는 비동기 주행 관리 노드도 개발했다.",
+    "stack": [
+      "C++",
+      "Python",
+      "Nav2"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "nav2-omni-path-controller"
+  },
+  {
+    "group": "구동·모션 제어",
     "name": "Nav2 collision monitor",
     "period": "2026.02",
     "status": "Merged",
     "state": "done",
+    "appliedTo": "ROS 2 Nav2 upstream",
     "desc": "전방향 로봇의 측면 이동을 올바르게 판정하도록 Nav2 Collision Monitor의 코드와 문서를 수정했다. 리뷰를 거쳐 upstream과 Jazzy 릴리스에 반영되었다.",
     "stack": [
       "C++",
@@ -24,7 +110,129 @@
     "post": "nav2-collision-monitor-holonomic"
   },
   {
-    "group": "Research",
+    "group": "관제·편대",
+    "name": "VDA5050 v3 기반 관제 연동",
+    "period": "2024.06 ~ 현재",
+    "status": "커넥터 동작, 상호운용 검증 전",
+    "state": "active",
+    "appliedTo": "피트인 1세대 AGV, 2세대 AMR, 인천 관제 데모",
+    "desc": "1세대의 rosbridge 자체 토픽 연동에서 출발해, VDA5050 v3와 MQTT 기반으로 로봇 쪽 커넥터와 관제 데모 서버, 편대 시뮬레이터를 개발했다. 관제 명령도 로봇의 인터록을 거치게 했다.",
+    "stack": [
+      "VDA5050",
+      "MQTT",
+      "ROS 2",
+      "TypeScript"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "vda5050-v3-integration"
+  },
+  {
+    "group": "관제·편대",
+    "name": "다중 AMR 교통 관제",
+    "period": "2026.08 ~ 현재",
+    "status": "일부 교착 남음, 운영 대조 전",
+    "state": "active",
+    "appliedTo": "인천 스테이션 관제 데모",
+    "desc": "경로 탐색과 주행 허가를 나눈 교통 관제 계층. 차체 공간 기반 예약, 정차 제한, 교착 탐지와 양보, 주행 중 재계획을 구현했다.",
+    "stack": [
+      "TypeScript",
+      "VDA5050",
+      "Multi-robot"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "multi-amr-traffic-control"
+  },
+  {
+    "group": "관제·편대",
+    "name": "배터리 교체 공정·충전 시뮬레이션",
+    "period": "2026.08 ~ 현재",
+    "status": "모델·정책 검토 중",
+    "state": "active",
+    "appliedTo": "인천 배터리 교체 스테이션",
+    "desc": "차량 진입, 배터리 탈착·장착, 랙 입출고와 충전을 한 모델에서 진행해 운영 정책을 비교한다. 가정 레지스트리와 재현 가능한 실험 화면을 갖췄으며 실제 운영과의 대조는 남아 있다.",
+    "stack": [
+      "TypeScript",
+      "Simulation",
+      "Gazebo"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "battery-swap-simulation"
+  },
+  {
+    "group": "안전·신뢰성",
+    "name": "안전 인터록과 상태 감시",
+    "period": "2025.08 ~ 현재",
+    "status": "자동 검증 완료, 현장 검증 전",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR",
+    "desc": "명령 처리기와 계통별 인터록, 시각 기반 생존 감시, 제어 프로그램과 따로 도는 감시 노드, 안전 래치를 설계했다. 물리 비상정지는 PLC 안전 회로가 맡도록 역할을 나눴다.",
+    "stack": [
+      "Python",
+      "ROS 2",
+      "PLC"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "amr-safety-interlock"
+  },
+  {
+    "group": "센서·위치 추정",
+    "name": "센서 통합과 위치 추정 구성",
+    "period": "2026.01 ~ 현재",
+    "status": "수신 확인, 정확도 검증 전",
+    "state": "active",
+    "appliedTo": "피트인 2세대 AMR",
+    "desc": "듀얼 LiDAR RTAB-Map 위치 추정, LiDAR 시각 동기 서비스, 두 IMU를 차체 중심으로 합성하는 노드와 배터리 BMS 수신 노드를 구성했다.",
+    "stack": [
+      "ROS 2",
+      "RTAB-Map",
+      "gPTP",
+      "IMU"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "amr-sensor-localization"
+  },
+  {
+    "group": "운용 도구",
+    "name": "로봇 조작·모니터링 화면",
+    "period": "2024.02 ~ 현재",
+    "status": "2세대 화면 개발 중",
+    "state": "active",
+    "appliedTo": "피트인 1세대 AGV, 2세대 AMR",
+    "desc": "1세대의 게임패드 조작과 Vue·rosbridge 웹 화면, 2세대의 three.js 3D 상태 화면과 조작 연습 데스크톱 앱, 전방향 조이스틱 조작 노드를 개발했다.",
+    "stack": [
+      "Vue 3",
+      "three.js",
+      "Tauri",
+      "ROS 2"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "robot-operation-hmi"
+  },
+  {
+    "group": "현장 장비 자동화",
+    "name": "타이어 탈착기 보조 제어",
+    "period": "2026.06 ~ 현재",
+    "status": "하드웨어 통합 중",
+    "state": "active",
+    "appliedTo": "피트인 타이어 탈착 장비",
+    "desc": "위치 명령이 없는 장비에 시리얼 위치 피드백과 릴레이 구동을 붙여 프리셋 이동을 만들고, 불명 상태 구동 차단과 TPMS 확인 흐름을 구현했다.",
+    "stack": [
+      "Raspberry Pi",
+      "Python",
+      "TPMS"
+    ],
+    "links": [],
+    "privateNote": "회사 비공개 저장소",
+    "post": "tire-changer-automation"
+  },
+  {
+    "group": "연구",
     "name": "omni-docking-bench",
     "period": "2026.04",
     "status": "v0.1.0 공개",
@@ -44,55 +252,7 @@
     "post": "omni-docking-bench"
   },
   {
-    "group": "Research",
-    "name": "이중 조향 구동 모델과 ros2_control 제어기",
-    "period": "2025.06 ~ 2025.08 (초기 공개본)",
-    "status": "초기 공개본 개발 멈춤",
-    "state": "stopped",
-    "desc": "이중 조향 기구학과 오도메트리를 ros2_control에 연결했다. 로봇 모델, 하드웨어 인터페이스와 제어기를 나눠 구성한 초기 공개 작업.",
-    "stack": [
-      "ROS 2",
-      "C++",
-      "ros2_control"
-    ],
-    "links": [
-      {
-        "label": "모델",
-        "href": "https://github.com/mach0312/dsd_bot_description"
-      },
-      {
-        "label": "데모",
-        "href": "https://github.com/mach0312/dsd_control_demo"
-      },
-      {
-        "label": "제어기",
-        "href": "https://github.com/mach0312/double_steering_drive_controller"
-      }
-    ],
-    "post": "double-steering-drive-controller"
-  },
-  {
-    "group": "Research",
-    "name": "PGV 포즈 기반 라인 제어",
-    "period": "2025.11 ~ 2026.02 (초기 공개본)",
-    "status": "초기 공개본 개발 멈춤",
-    "state": "stopped",
-    "desc": "PGV 포즈를 이용한 정렬·목표 이동 제어와 관제 연동을 개발하고 동료의 미세 제어를 통합했다. 초기 공개본이며 후속 개발은 회사로 옮겼다.",
-    "stack": [
-      "ROS 2",
-      "Python",
-      "PGV"
-    ],
-    "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/mach0312/pgv_tracing_mode"
-      }
-    ],
-    "post": "pgv-tracing-mode"
-  },
-  {
-    "group": "Research",
+    "group": "연구",
     "name": "payload_mass_estimator",
     "period": "2026.06 (초기 구현)",
     "status": "초기 구현·빌드 미완",
@@ -112,88 +272,7 @@
     "post": "payload-mass-estimator"
   },
   {
-    "group": "Work · 피트인",
-    "name": "배터리 이송 AGV 제어 프로그램",
-    "period": "2023.09 시작, 2024.01 합류",
-    "status": "현장 운용·후속 개선 중",
-    "state": "active",
-    "desc": "현장 운용 중인 AGV 제어 프로그램에서 수동 조작, ROS 2 관제 연동과 작업 상태 처리를 맡았다. 동료가 만든 기반 위에서 기능을 보완했다.",
-    "stack": [
-      "Python",
-      "ROS 2",
-      "rosbridge"
-    ],
-    "links": [],
-    "privateNote": "회사 비공개 저장소",
-    "post": "battery-agv-control"
-  },
-  {
-    "group": "Work · 피트인",
-    "name": "1세대 AGV 제어 웹 페이지",
-    "period": "2024.05 ~ 2026.02 (기본 브랜치)",
-    "status": "기본 브랜치 후속 변경 없음",
-    "state": "stopped",
-    "desc": "Vue와 rosbridge를 연결해 여러 AGV의 상태 확인과 명령 전송 화면을 개발했다. 1세대 구현 기록이며 현재 현장 사용 여부는 확인하지 못했다.",
-    "stack": [
-      "Vue 3",
-      "Vuetify",
-      "WebSocket"
-    ],
-    "links": [],
-    "privateNote": "회사 비공개 저장소",
-    "post": "agv-control-web"
-  },
-  {
-    "group": "Work · 피트인",
-    "name": "2세대 배터리 이송 AMR 소프트웨어",
-    "period": "2025.08 ~ 현재",
-    "status": "개발·현장 검증 중",
-    "state": "active",
-    "desc": "ROS 2 기반 AMR의 시스템 제어, Nav2 주행과 관제 연결을 개발하고 있다. 주행·장치·관제의 역할을 나눠 구성했으며 현장 통합 검증을 진행 중이다.",
-    "stack": [
-      "ROS 2 Jazzy",
-      "Nav2",
-      "ros2_control",
-      "VDA5050"
-    ],
-    "links": [],
-    "privateNote": "회사 비공개 저장소",
-    "post": "amr-v2-software"
-  },
-  {
-    "group": "Work · 피트인",
-    "name": "타이어 탈착기 보조 제어",
-    "period": "2026.06 ~ 현재",
-    "status": "하드웨어 통합 중",
-    "state": "active",
-    "desc": "라즈베리파이 기반 장비 보조 제어, 작업 시퀀스와 TPMS 확인 화면을 연결했다. 현재 하드웨어 통합을 진행 중이다.",
-    "stack": [
-      "Raspberry Pi",
-      "Python",
-      "TPMS"
-    ],
-    "links": [],
-    "privateNote": "회사 비공개 저장소",
-    "post": "tire-changer-automation"
-  },
-  {
-    "group": "Work · 피트인",
-    "name": "인천 스테이션 편대·충전 시뮬레이터",
-    "period": "2026.08 ~ 현재",
-    "status": "모델·정책 검토 중",
-    "state": "active",
-    "desc": "AMR 이동과 배터리 재고·충전을 함께 평가하는 시뮬레이터. 시나리오 생성, 실행과 시각화를 연결했으며 실제 운영 비교 검증은 남아 있다.",
-    "stack": [
-      "TypeScript",
-      "Simulation",
-      "Fleet"
-    ],
-    "links": [],
-    "privateNote": "회사 비공개 저장소",
-    "post": "incheon-fleet-simulator"
-  },
-  {
-    "group": "Teaching",
+    "group": "강의",
     "name": "Sampling-Based-Planning_Tutorial",
     "period": "2025.11",
     "status": "강의 영상 11편",
